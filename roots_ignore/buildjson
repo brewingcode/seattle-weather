@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import os
 import requests
@@ -24,12 +25,12 @@ def fetch(url):
 
   return AttrDict({
     't': data['time-layout']['start-valid-time'],
-    'Dew Point': [int(x) for x in data.parameters.temperature[0].value],
-    'Temperature': [int(x) for x in data.parameters.temperature[2].value],
-    'Wind Speed': [int(x) for x in data.parameters['wind-speed'][0]['value']],
-    '% Cloud Cover': [int(x) for x in data.parameters['cloud-amount']['value']],
-    '% Chance Precipitation': [int(x) for x in data.parameters['probability-of-precipitation']['value']],
-    '% Relative Humidity': [int(x) for x in data.parameters['humidity']['value']],
+    'Dew Point': ['º', [int(x) for x in data.parameters.temperature[0].value]],
+    'Temperature': ['º', [int(x) for x in data.parameters.temperature[2].value]],
+    'Wind Speed': ['mph', [int(x) for x in data.parameters['wind-speed'][0]['value']]],
+    'Cloud Cover': ['%', [int(x) for x in data.parameters['cloud-amount']['value']]],
+    'Chance Precipitation': ['%', [int(x) for x in data.parameters['probability-of-precipitation']['value']]],
+    'Relative Humidity': ['%', [int(x) for x in data.parameters['humidity']['value']]],
   })
 
 def write_json(data, filename, compress=False):
