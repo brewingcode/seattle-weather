@@ -6,60 +6,13 @@ html
     meta(http-equiv='X-UA-Compatible', content='IE=edge, chrome=1')
     meta(name='description', content='Historical graphs of Seattle freeway traffic')
     //- uncomment if your site is responsive!
-    meta(name="viewport" content="width=device-width, initial-scale=0.65, user-scalable=no")
-    title Seattle Traffic
+    //- meta(name="viewport" content="width=device-width, initial-scale=0.65, user-scalable=no")
+    title Seattle Weather
     != css()
 
   body
     div
       div(id='graph', style="width:100%")
-    div.row
-      div.col-xs-3.text-left
-        label(for="start") Starting at
-        br
-        select(id="start")
-      div.col-xs-6.text-center
-        label(for="start") Via route
-        br
-        select(id='route')
-      div.col-xs-3.text-right
-        label(for="end") Ending at
-        br
-        select(id='end')
-    div.row
-      div.col-xs-3.text-left
-        label(for="time") Time
-        br
-        input(id='time', type='text', value="(now)")
-      div.col-xs-6.text-center
-        label(for="delta") Hours before and after
-        br
-        input(id='delta', type='text')
-      div.col-xs-3.text-right
-        label(for="weeks") # of days to include
-        br
-        select(id='weeks')
-          each n in [1,2,3,4,5,6,7,8]
-            option(val=n)= n
-    div(id='usage', style='padding-bottom:2em')
-      h3 More Info
-      div
-        :markdown
-          This is a historical graph
-          freeway traffic, based on data from
-          [WSDOT](http://www.wsdot.com/traffic/traveltimes/default.aspx). The idea is
-          a quick glance at how travel times in the same timespan in the same day of
-          the week can show a pattern for how reliable the current trend is, today.
-
-          Setting|Default|Explanation
-          :---|------:|:----
-          Starting at             |     Seattle | City to start at
-          Via route               | I-5, SR 520 | Possible routes between them
-          Ending                  |     Redmond | City to end at, may change depending on `Starting at`
-          Time                    |   (now)     | Time to base the graph on, this time falls in the exact center
-          Hours before and after  |           6 | Number of hours to show before and after `Time`
-          \# of days              |           5 | Number of days to include in the graph (days are 1 week apart)
-
     div(style="height:4em")
     div(id='tooltip')
     != js()
