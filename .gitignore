@@ -1,7 +1,6 @@
 .DS_Store
 node_modules
 public
-assets/routes.json
-assets/timing
+assets/data.json
 cronjob
 ship.conf
