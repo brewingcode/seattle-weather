@@ -6,10 +6,6 @@ import requests
 import xmltodict
 from attrdict import AttrDict
 import json
-import sys
-import base64
-import zlib
-import urllib
 
 here = os.path.dirname(os.path.realpath(__file__)) + '/../'
 
@@ -35,13 +31,7 @@ def fetch(url):
 
 def write_json(data, filename, compress=False):
   with open(here + filename, 'w') as f:
-    if compress:
-      text = json.dumps(data)
-      compressed = base64.b64encode(zlib.compress(urllib.quote(text), 9))
-      f.write(compressed)
-    else:
-      json.dump(data, f)
-    print filename
+    json.dump(data, f)
 
 if __name__ == '__main__':
   main()

@@ -1,9 +1,6 @@
 units = null
 
 init = ->
-  moment.tz.add('America/Los_Angeles|PST PDT|80 70|0101|1Lzm0 1zb0 Op0')
-  now = moment(moment(), 'America/Los_Angeles')
-
   setHeight = -> $('#graph').height $('#graph').width() * 0.55
   setHeight()
   $(window).resize -> setHeight()
