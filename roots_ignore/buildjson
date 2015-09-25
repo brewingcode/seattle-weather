@@ -10,32 +10,36 @@ import base64
 import zlib
 import urllib
 
-here = os.path.dirname(os.path.realpath(__file__)) + '/..'
+here = os.path.dirname(os.path.realpath(__file__)) + '/../'
 
 def main():
   lat = 47.60246
   lon = -122.31353759765625
   url = "http://forecast.weather.gov/MapClick.php?lat={}&lon={}&FcstType=digitalDWML".format(lat,lon)
-  print json.dumps(fetch(url))
+  write_json(fetch(url), 'assets/data.json')
 
 def fetch(url):
   r = requests.get(url)
   data = AttrDict(xmltodict.parse(r.text)).dwml.data
 
   return AttrDict({
-    'time': data['time-layout']['start-valid-time'],
-    'dewpoint': [int(x) for x in data.parameters.temperature[0].value],
-    'temperature': [int(x) for x in data.parameters.temperature[2].value],
+    't': data['time-layout']['start-valid-time'],
+    'Dew Point': [int(x) for x in data.parameters.temperature[0].value],
+    'Temperature': [int(x) for x in data.parameters.temperature[2].value],
+    'Wind Speed': [int(x) for x in data.parameters['wind-speed'][0]['value']],
+    '% Cloud Cover': [int(x) for x in data.parameters['cloud-amount']['value']],
+    '% Chance Precipitation': [int(x) for x in data.parameters['probability-of-precipitation']['value']],
+    '% Relative Humidity': [int(x) for x in data.parameters['humidity']['value']],
   })
 
 def write_json(data, filename, compress=False):
-  with open(filename, 'w') as f:
+  with open(here + filename, 'w') as f:
     if compress:
-      text = json.dumps(data, default=json_util.default)
+      text = json.dumps(data)
       compressed = base64.b64encode(zlib.compress(urllib.quote(text), 9))
       f.write(compressed)
     else:
-      json.dump(data, f, default=json_util.default)
+      json.dump(data, f)
     print filename
 
 if __name__ == '__main__':
